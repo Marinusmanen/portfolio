@@ -4,7 +4,7 @@ import profilePic from "./pictures/Foto_Portfolio1.webp";
 export const siteConfig = {
   name: "Marijn van Veggel",
   role: "XR Software Developer",
-  tagline: "Ik bouw interactieve XR-ervaringen met Unity en C#. Met grote passie voor animaties, klim ik in het Rokoko MoCap pak om leven in mijn creaties te blazen.",
+  tagline: "Ik ontwikkel interactieve XR-ervaringen met Unity en C#. Met een passie voor animatie en motion capture breng ik digitale werelden en personages tot leven, van de eerste regel code tot beweging vastgelegd met het Rokoko MoCap-pak.",
   aboutImage: profilePic,
   TLTitle: "Bouw je eigen Animatie!",
   cv: "portfolio/Media/CV_MvV.pdf",
@@ -17,7 +17,7 @@ export const siteConfig = {
   },
 
   aboutLong: `
-  Ik ben Marijn van Veggel, een gepassioneerde XR Software Developer met een sterke focus op het creëren van meeslepende ervaringen in de wereld van virtual en augmented reality. Met een achtergrond in Unity en C# combineer ik technische expertise met creatieve oplossingen om interactieve projecten tot leven te brengen. Mijn ervaring strekt zich uit over diverse domeinen, waaronder animatie, motion capture en embedded systems, waardoor ik in staat ben om innovatieve en boeiende XR-ervaringen te ontwikkelen. Ik ben altijd op zoek naar nieuwe uitdagingen en samenwerkingen die mijn vaardigheden verder kunnen versterken en mijn passie voor technologie en design kunnen voeden.
+  Ik ben Marijn van Veggel, een gedreven XR Software Developer student op het Grafisch Lyceum Utrecht, met een passie voor het combineren van technologie en creativiteit. Ik haal er plezier uit om ideeën om te zetten in interactieve ervaringen en technische uitdagingen op te lossen. Met een praktische en nieuwsgierige instelling experimenteer ik graag met nieuwe technieken en zoek ik naar innovatieve manieren om software en hardware samen te brengen. Ik blijf mezelf uitdagen om nieuwe vaardigheden te ontwikkelen en mijn ideeën om te zetten in projecten die mensen kunnen beleven.
   `,
 
   softSkills: ["Samenwerking met designers", "Feedback geven & ontvangen + verwerken", "Probleemoplossend denken", "Creatief denken", "Communicatie & Presentatie"],

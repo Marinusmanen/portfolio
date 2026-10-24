@@ -3,6 +3,28 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
+// Desktop = wide screen AND a precise pointer (mouse / trackpad).
+// Phones, tablets (also in landscape) and other touch devices fall outside this.
+const DESKTOP_QUERY = "(min-width: 1024px) and (pointer: fine)";
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia(DESKTOP_QUERY).matches
+      : false
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_QUERY);
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return isDesktop;
+}
+
 function shortestAngleLerp(a, b, t) {
   let diff = b - a;
   while (diff > Math.PI) diff -= Math.PI * 2;
@@ -45,7 +67,54 @@ const ALL_LIMBS = [
   { id: "legR", label: "Right Leg" },
 ];
 
+/* ------------------------------------------------------------------ */
+/*  What mobile / tablet visitors see instead of the animator          */
+/* ------------------------------------------------------------------ */
+function DesktopOnlyNotice() {
+  return (
+    <div className="w-full rounded-2xl border border-(--muted) bg-black/20 overflow-hidden">
+      <div className="flex flex-col items-center justify-center gap-4 px-6 py-16 text-center">
+        {/* Monitor icon */}
+        <svg
+          viewBox="0 0 64 64"
+          className="w-14 h-14 text-(--accent)"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="6" y="10" width="52" height="34" rx="4" />
+          <line x1="24" y1="56" x2="40" y2="56" />
+          <line x1="32" y1="44" x2="32" y2="56" />
+        </svg>
+
+        <p className="text-lg font-medium text-(--text)">
+          Bekijk op desktop om een animatie te bouwen!
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Public component: decides between the animator and the notice      */
+/* ------------------------------------------------------------------ */
 export default function WorkingAnimationLine() {
+  const isDesktop = useIsDesktop();
+
+  // The animator is not mounted at all on mobile / tablet,
+  // so it also doesn't run any code there.
+  if (!isDesktop) return <DesktopOnlyNotice />;
+
+  return <AnimatorDesktop />;
+}
+
+/* ------------------------------------------------------------------ */
+/*  The animator itself (unchanged, only renamed)                      */
+/* ------------------------------------------------------------------ */
+function AnimatorDesktop() {
   // ===== Timeline basics =====
   const duration = 5.0; // ✅ 5 seconds
   const basePxPerSec = 240; // lower because duration is bigger now
